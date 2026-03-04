@@ -4,216 +4,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kaneland Application Launcher</title>
+    <link rel="icon" href="https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png">
+    
     <style>
         :root {
-            --kaneland-blue: #003366;
-            --kaneland-gold: #ffcc00;
-            --bg-color: #f0f2f5;
-            --card-bg: #ffffff;
+            --google-gray: #5f6368;
+            --google-blue: #1a73e8;
+            --bg-color: #ffffff;
+            --card-hover: #f1f3f4;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Product Sans', Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
-            color: #333;
-        }
-
-        header {
-            background-color: var(--kaneland-blue);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-            border-bottom: 5px solid var(--kaneland-gold);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.2rem;
-            letter-spacing: 1px;
-        }
-
-        header p {
-            margin: 10px 0 0;
-            opacity: 0.9;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        /* The Grid System */
-        .launcher-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 25px;
-        }
-
-        /* App Card Styles */
-        .app-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            text-align: center;
-            padding: 30px 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            color: inherit;
+            color: #202124;
             display: flex;
             flex-direction: column;
             align-items: center;
-            border: 1px solid #ddd;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        .app-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-            border-color: var(--kaneland-blue);
+        /* Top Navigation Bar */
+        header {
+            width: 100%;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #dadce0;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 22px;
+            color: var(--google-gray);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 24px;
+        }
+
+        /* Hero / Title Section */
+        .hero {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-weight: 400;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        /* App Grid */
+        .launcher-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 1000px;
+            padding: 20px;
+        }
+
+        /* Individual App Card */
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            padding: 20px;
+            border-radius: 12px;
+            transition: background 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .app-item:hover {
+            background-color: var(--card-hover);
+            border: 1px solid #dadce0;
         }
 
         .app-icon {
             width: 64px;
             height: 64px;
-            margin-bottom: 15px;
-            background-color: #eee;
-            border-radius: 12px;
+            margin-bottom: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 30px;
+            font-size: 40px;
+            background: #f8f9fa;
+            border-radius: 16px;
         }
 
-        .app-card h3 {
-            margin: 10px 0 5px;
-            font-size: 1.1rem;
-            color: var(--kaneland-blue);
-        }
-
-        .app-card p {
-            margin: 0;
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        /* Simple Search Bar */
-        .search-container {
-            margin-bottom: 30px;
+        .app-name {
+            font-size: 14px;
+            font-weight: 500;
             text-align: center;
         }
 
-        #appSearch {
+        /* Search Bar */
+        .search-wrapper {
             width: 100%;
-            max-width: 400px;
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 1px solid #ccc;
-            font-size: 1rem;
-            outline: none;
+            max-width: 580px;
+            margin-bottom: 40px;
         }
 
-        #appSearch:focus {
-            border-color: var(--kaneland-blue);
+        #search {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 24px;
+            border: 1px solid #dadce0;
+            font-size: 16px;
+            outline: none;
+            transition: box-shadow 0.2s;
+        }
+
+        #search:focus {
+            box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+        }
+
+        /* Panic Button Style */
+        .panic-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #d93025;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         @media (max-width: 600px) {
-            .launcher-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            }
+            .hero h1 { font-size: 1.8rem; }
+            .launcher-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Kaneland Application Launcher</h1>
-    <p>Select an application to get started</p>
-</header>
+    <header>
+        <div class="logo">
+            <img src="https://www.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png" alt="Logo">
+            Kaneland Launcher
+        </div>
+    </header>
 
-<div class="container">
-    
-    <div class="search-container">
-        <input type="text" id="appSearch" placeholder="Search for an app..." onkeyup="filterApps()">
+    <div class="hero">
+        <h1>Application Launcher</h1>
+        <p>Select an app to continue</p>
     </div>
 
-    <div class="launcher-grid" id="launcherGrid">
+    <div class="search-wrapper">
+        <input type="text" id="search" placeholder="Search apps..." onkeyup="filterApps()">
+    </div>
+
+    <main class="launcher-grid" id="grid">
         
-        <a href="https://kanelandil.infinitecampus.org/campus/portal/kaneland.jsp" class="app-card" target="_blank">
-            <div class="app-icon">🏫</div>
-            <h3>Infinite Campus</h3>
-            <p>Grades & Attendance</p>
+        <a href="LINK_TO_GAME_HERE" class="app-item">
+            <div class="app-icon">🎈</div>
+            <div class="app-name">Bloons TD 5</div>
         </a>
 
-        <a href="https://kaneland.instructure.com/" class="app-card" target="_blank">
+        <a href="LINK_TO_GAME_HERE" class="app-item">
+            <div class="app-icon">🚗</div>
+            <div class="app-name">GTA 1</div>
+        </a>
+
+        <a href="https://kaneland.instructure.com/" class="app-item">
             <div class="app-icon">🎨</div>
-            <h3>Canvas</h3>
-            <p>Courses & Assignments</p>
+            <div class="app-name">Canvas</div>
         </a>
 
-        <a href="https://mail.google.com/" class="app-card" target="_blank">
-            <div class="app-icon">✉️</div>
-            <h3>Gmail</h3>
-            <p>School Email</p>
+        <a href="https://kanelandil.infinitecampus.org/campus/portal/kaneland.jsp" class="app-item">
+            <div class="app-icon">🏫</div>
+            <div class="app-name">Infinite Campus</div>
         </a>
 
-        <a href="https://drive.google.com/" class="app-card" target="_blank">
+        <a href="https://drive.google.com" class="app-item">
             <div class="app-icon">📂</div>
-            <h3>Google Drive</h3>
-            <p>Files & Storage</p>
+            <div class="app-name">Google Drive</div>
         </a>
 
-        <a href="https://www.clever.com/in/kaneland" class="app-card" target="_blank">
-            <div class="app-icon">♾️</div>
-            <h3>Clever</h3>
-            <p>Single Sign-On</p>
-        </a>
+    </main>
 
-        <a href="https://www.kaneland.org" class="app-card" target="_blank">
-            <div class="app-icon">🌐</div>
-            <h3>District Site</h3>
-            <p>News & Updates</p>
-        </a>
+    <button class="panic-btn" onclick="panic()">PANIC (ESC)</button>
 
-        <a href="#" class="app-card" target="_blank">
-            <div class="app-icon">🔗</div>
-            <h3>Library</h3>
-            <p>KHS Resources</p>
-        </a>
-
-    </div>
-</div>
-
-<footer>
-    <p>&copy; 2026 Kaneland CUSD 302 | Custom Launcher Interface</p>
-</footer>
-
-<script>
-    function filterApps() {
-        const input = document.getElementById('appSearch');
-        const filter = input.value.toUpperCase();
-        const grid = document.getElementById('launcherGrid');
-        const cards = grid.getElementsByClassName('app-card');
-
-        for (let i = 0; i < cards.length; i++) {
-            let title = cards[i].getElementsByTagName("h3")[0];
-            if (title.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                cards[i].style.display = "";
-            } else {
-                cards[i].style.display = "none";
+    <script>
+        // Filter function for search bar
+        function filterApps() {
+            let input = document.getElementById('search').value.toLowerCase();
+            let items = document.getElementsByClassName('app-item');
+            
+            for (let i = 0; i < items.length; i++) {
+                let name = items[i].querySelector('.app-name').innerText.toLowerCase();
+                items[i].style.display = name.includes(input) ? "flex" : "none";
             }
         }
-    }
-</script>
 
+        // Panic Function
+        function panic() {
+            window.location.replace("https://kaneland.instructure.com/");
+        }
+
+        // Panic Keybind (Escape)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") panic();
+        });
+    </script>
 </body>
 </html>
